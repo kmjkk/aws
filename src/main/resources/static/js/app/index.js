@@ -70,4 +70,4 @@ var main = {
          }
 };
 
-main.init();
+//main.init();
