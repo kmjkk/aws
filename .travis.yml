@@ -15,7 +15,7 @@ cache:
 before_deploy:
   - zip -r mjadmin-springboot2-webservice *
   - mkdir -p deploy
-  - mv mjadmin-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip
+  - mv mjadmin-springboot2-webservice.zip deploy/mjadmin-springboot2-webservice.zip
 
 deploy:
   - provider: s3
