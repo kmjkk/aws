@@ -16,6 +16,7 @@ before_deploy:
   - mkdir -p deploy
   - mv mjadmin-springboot2-webservice.zip deploy/mjadmin-springboot2-webservice.zip
 
+
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
