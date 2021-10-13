@@ -13,9 +13,9 @@ cache:
     - '$HOME/.gradlew'
 
 before_deploy:
-  - zip -r freelec-springboot2-webservice *
+  - zip -r mjadmin-springboot2-webservice *
   - mkdir -p deploy
-  - mv freelec-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip
+  - mv mjadmin-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip
 
 deploy:
   - provider: s3
@@ -28,6 +28,18 @@ deploy:
     acl : private
     local_dir: deploy
     wait-until-deployed : true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: mjadmin-springboot_build
+    key: mjadmin-springboot2-webservice.zip
+
+    bundle_type: zip
+    application: mjadmin-springboot2-webservice
+    deployment_group: mjadmin-springboot2-webservice-group
+    region: ap-northeast-2
+    wait-until-deployed: true
 
 script: "./gradlew clean build"
 
