@@ -10,10 +10,24 @@ branches:
 cache:
   directories:
     - '$HOME/.m2/repository'
-    - '$HOME/.gradle'
+    - '$HOME/.gradlew'
 
-before_install:
-  - chmod +x gradlew
+before_deploy:
+  - zip -r freelec-springboot2-webservice *
+  - mkdir -p deploy
+  - mv freelec-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+
+    bucket: mjadmin-springboot_build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl : private
+    local_dir: deploy
+    wait-until-deployed : true
 
 script: "./gradlew clean build"
 
@@ -22,3 +36,4 @@ notifications:
   email:
     recipients:
       - alwjd1415@naver.com
+
